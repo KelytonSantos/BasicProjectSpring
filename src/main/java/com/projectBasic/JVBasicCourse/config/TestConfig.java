@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.projectBasic.JVBasicCourse.entities.Order;
 import com.projectBasic.JVBasicCourse.entities.User;
+import com.projectBasic.JVBasicCourse.entities.enums.OrderStatus;
 import com.projectBasic.JVBasicCourse.repositories.OrderRepository;
 import com.projectBasic.JVBasicCourse.repositories.UserRepository;
 
@@ -31,11 +32,11 @@ public class TestConfig implements CommandLineRunner {
         User u3 = new User(null, "lucas","s@gmail.com","542186354","683574");
         User u4 = new User(null, "santos","w@gmail.com","65678524","968374");
 
-        Order o1 = new Order(null, Instant.parse("2022-06-20T19:53:02Z"),u1);
-        Order o2 = new Order(null, Instant.parse("2022-06-05T19:53:05Z"),u2);
-        Order o3 = new Order(null, Instant.parse("2022-06-06T19:53:09Z"),u3);//É possivel ver a associação entre pedido e usuario
-        Order o4 = new Order(null, Instant.parse("2022-06-08T19:53:06Z"),u4);
-        Order o5 = new Order(null, Instant.parse("2022-06-19T19:53:08Z"),u1);
+        Order o1 = new Order(null, Instant.parse("2022-06-20T19:53:02Z"),OrderStatus.PAID,u1);
+        Order o2 = new Order(null, Instant.parse("2022-06-05T19:53:05Z"),OrderStatus.WAITING_PAYMENT,u2);
+        Order o3 = new Order(null, Instant.parse("2022-06-06T19:53:09Z"),OrderStatus.WAITING_PAYMENT,u3);//É possivel ver a associação entre pedido e usuario
+        Order o4 = new Order(null, Instant.parse("2022-06-08T19:53:06Z"),OrderStatus.DELIVERED,u4);
+        Order o5 = new Order(null, Instant.parse("2022-06-19T19:53:08Z"),OrderStatus.CANCELED,u1);
 
 
         userRepository.saveAll(Arrays.asList(u1,u2,u3,u4)); //aqui eu salvo o meu u1 e u2 como lista
