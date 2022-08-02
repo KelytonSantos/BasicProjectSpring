@@ -1,9 +1,9 @@
 package com.projectBasic.JVBasicCourse.repositories;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import com.projectBasic.JVBasicCourse.entities.User;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 public interface UserRepository extends JpaRepository<User, Long> {
-    
+
 }
