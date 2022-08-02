@@ -1,0 +1,9 @@
+package com.projectBasic.JVBasicCourse.repositories;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.projectBasic.JVBasicCourse.entities.Product;
+
+public interface ProductRepository extends JpaRepository<Product, Long>{
+
+}
