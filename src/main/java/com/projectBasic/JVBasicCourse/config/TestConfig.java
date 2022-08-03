@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.projectBasic.JVBasicCourse.entities.Category;
 import com.projectBasic.JVBasicCourse.entities.Order;
+import com.projectBasic.JVBasicCourse.entities.OrderItem;
 import com.projectBasic.JVBasicCourse.entities.Product;
 import com.projectBasic.JVBasicCourse.entities.User;
 import com.projectBasic.JVBasicCourse.entities.enums.OrderStatus;
 import com.projectBasic.JVBasicCourse.repositories.CategoryRepository;
+import com.projectBasic.JVBasicCourse.repositories.OrderItemRepository;
 import com.projectBasic.JVBasicCourse.repositories.OrderRepository;
 import com.projectBasic.JVBasicCourse.repositories.ProductRepository;
 import com.projectBasic.JVBasicCourse.repositories.UserRepository;
@@ -33,6 +35,9 @@ public class TestConfig implements CommandLineRunner {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -75,5 +80,12 @@ public class TestConfig implements CommandLineRunner {
         userRepository.saveAll(Arrays.asList(u1,u2,u3,u4)); //aqui eu salvo o meu u1 e u2 como lista
         orderRepository.saveAll(Arrays.asList(o1, o2, o3, o4, o5));
 
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p4.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 1, p1.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 1, p5.getPrice());
+
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }
