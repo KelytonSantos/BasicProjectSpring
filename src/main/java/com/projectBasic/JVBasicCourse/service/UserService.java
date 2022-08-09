@@ -1,10 +1,13 @@
 package com.projectBasic.JVBasicCourse.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.projectBasic.JVBasicCourse.entities.User;
 import com.projectBasic.JVBasicCourse.repositories.UserRepository;
+import com.projectBasic.JVBasicCourse.service.exceptions.DatabaseException;
 import com.projectBasic.JVBasicCourse.service.exceptions.ResourceNotFoundException;
 
 import java.util.List;
@@ -30,7 +33,15 @@ public class UserService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+
+        try{
+            repository.deleteById(id);
+        } catch(EmptyResultDataAccessException e) {
+            //e.printStackTrace();//Com isso eu consigo ver qual foi a exceção que deu
+            throw new ResourceNotFoundException(id);
+        } catch (DataIntegrityViolationException e){
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj){
