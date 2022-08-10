@@ -13,6 +13,8 @@ import com.projectBasic.JVBasicCourse.service.exceptions.ResourceNotFoundExcepti
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+
 @Service //Poderia ser o @Component
 public class UserService {
     
@@ -45,9 +47,13 @@ public class UserService {
     }
 
     public User update(Long id, User obj){
-        User entity = repository.getOne(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try{
+            User entity = repository.getOne(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        } catch(EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     private void updateData(User entity, User obj) {
